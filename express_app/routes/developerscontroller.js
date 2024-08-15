@@ -1,26 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var client = require('../mongoConfig/developerConnection');
 
-var developers = [
-    {
-        id: 1,
-        firstName: 'Sudharsan',
-        lastName: 'Ganesan',
-        favouriteLanguage: 'Python',
-        yearStarted: 2016
-    },
-    {
-        id: 2,
-        firstName: 'John',
-        lastName: 'Snow',
-        favouriteLanguage: 'C++',
-        yearStarted: 2000
-    }
-];
 
 // Get all developers
 
-router.get('/all', function(req, res, next) {
+router.get('/all', async function(req, res, next) {
+    await client.connect();
+    const collection = client.db('developers').collection('developer');
+    const developers = await collection.find().toArray();
+    client.close();
     res.send(developers);
 });
 
