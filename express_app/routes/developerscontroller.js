@@ -44,7 +44,7 @@ router.post('/addDeveloper', function(req, res, next) {
 });
 
 //update a developer
-router.post('/update', function(req, res, next) {
+router.put('/update', function(req, res, next) {
     const developer = developers.find(dev => dev.id === parseInt(req.body.id));
     if(!developer){
         res.status(401).send('developer not found');
@@ -60,7 +60,7 @@ router.post('/update', function(req, res, next) {
 
 // delete a developer
 
-router.post('/delete', function(req, res, next){
+router.delete('/delete', function(req, res, next){
     const developer = developers.find(dev => dev.id === parseInt(req.body.id));
     if(!developer){
         res.status(404).send('developer not found');
